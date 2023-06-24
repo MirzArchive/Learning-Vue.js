@@ -15,13 +15,14 @@
       <div class="container-fluid">
         <a href="#" class="navbar-brand">My Vue</a>
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li v-for="(link, key) in links" class="nav-item" :key="key">
+          <li v-for="(page, key) in pages" class="nav-item" :key="key">
             <a
-              :href="link.url"
+              :href="page.link.url"
               class="nav-link"
               aria-current="page"
-              :title="`This nav-button goes to ${link.name} page.`"
-              >{{ link.name }}
+              :title="`This nav-button goes to ${page.link.name} page.`"
+              @click.prevent="activePage = key"
+              >{{ page.link.name }}
             </a>
           </li>
         </ul>
@@ -29,31 +30,35 @@
     </nav>
 
     <div id="content" class="container">
-      <h1>{{ pageTitle }}</h1>
-      <p>{{ content }}</p>
+      <h1>{{ pages[activePage].title }}</h1>
+      <p>{{ pages[activePage].content }}</p>
     </div>
 
     <script>
       Vue.createApp({
         data() {
           return {
-            links: [
-              { name: "Home", url: "home.html" },
-              { name: "About", url: "about.html" },
-              { name: "Contact", url: "contact.html" },
+            activePage: 0,
+            pages: [
+              {
+                link: { name: "Home", url: "home.html" },
+                title: "Home Page",
+                content: "This is the Home content",
+              },
+              {
+                link: { name: "About", url: "about.html" },
+                title: "About Page",
+                content: "This is the About content",
+              },
+              {
+                link: { name: "Contact", url: "contact.html" },
+                title: "Contact Page",
+                content: "This is the Contact content",
+              },
             ],
           };
         },
-      }).mount("nav");
-
-      Vue.createApp({
-        data() {
-          return {
-            pageTitle: "Hello, Vue",
-            content: "Welcome to the wonderful world of Vue",
-          };
-        },
-      }).mount("#content");
+      }).mount("body");
     </script>
   </body>
 </html>
