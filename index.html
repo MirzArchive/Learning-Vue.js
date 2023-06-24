@@ -11,7 +11,10 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav
+      class="navbar navbar-expand-lg"
+      :class="{'navbar-dark bg-dark': darkMode, 'navbar-light bg-light': !darkMode}"
+    >
       <div class="container-fluid">
         <a href="#" class="navbar-brand">My Vue</a>
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -19,6 +22,7 @@
             <a
               :href="page.link.url"
               class="nav-link"
+              :class="{active: key == activePage}"
               aria-current="page"
               :title="`This nav-button goes to ${page.link.name} page.`"
               @click.prevent="activePage = key"
@@ -26,6 +30,9 @@
             </a>
           </li>
         </ul>
+        <form class="d-flex">
+          <button class="btn btn-primary" @click.prevent="darkMode = !darkMode">Toggle</button>
+        </form>
       </div>
     </nav>
 
@@ -39,6 +46,7 @@
         data() {
           return {
             activePage: 0,
+            darkMode: true,
             pages: [
               {
                 link: { name: "Home", url: "home.html" },
