@@ -11,10 +11,7 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   </head>
   <body>
-    <nav
-      class="navbar navbar-expand-lg"
-      :class="{'navbar-dark bg-dark': darkMode, 'navbar-light bg-light': !darkMode}"
-    >
+    <nav class="navbar navbar-expand-lg" :class="navbarClasses">
       <div class="container-fluid">
         <a href="#" class="navbar-brand">My Vue</a>
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -43,6 +40,16 @@
 
     <script>
       Vue.createApp({
+        computed: {
+          navbarClasses() {
+            return {
+              "navbar-dark": this.darkMode,
+              "bg-dark": this.darkMode,
+              "navbar-light": !this.darkMode,
+              "bg-light": !this.darkMode,
+            };
+          },
+        },
         data() {
           return {
             activePage: 0,
