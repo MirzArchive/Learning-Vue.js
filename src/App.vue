@@ -1,6 +1,6 @@
 <template>
   <navbar :pages="pages" :active-page="activePage" :nav-page-click="(key) => activePage = key"></navbar>
-  <page-viewer :page="pages[activePage]"></page-viewer>
+  <page-viewer :page="pages[activePage]" v-if="pages != null"></page-viewer>
 </template>
 
 <script>
