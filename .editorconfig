@@ -1,0 +1,27 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# Top-most EditorConfig file
+root = true
+
+# Matches all files
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 2
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Matches specific file types
+
+# HTML files
+[*.{html,htm}]
+indent_size = 2
+
+# CSS files
+[*.{css,scss}]
+indent_size = 2
+
+# JavaScript files
+[*.{js,vue}]
+indent_size = 2

@@ -1,13 +1,6 @@
 <template>
-  <Navbar
-    :pages="pages"
-    :active-page="activePage"
-    :nav-page-click="(key) => activePage = key"
-  ></Navbar>
-  <PageViewer
-    :page="pages[activePage]"
-    v-if="pages != null"
-  ></PageViewer>
+  <Navbar :pages="pages" :active-page="activePage" :nav-page-click="(key) => activePage = key"></Navbar>
+  <PageViewer :page="pages[activePage]" v-if="pages != null"></PageViewer>
 
   <CreatePage :page-created="createPage"></CreatePage>
 </template>
