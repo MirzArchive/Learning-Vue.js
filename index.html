@@ -6,31 +6,16 @@
     <title>Vue Basics</title>
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" />
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    />
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   </head>
   <body>
-    <nav :class="[`navbar-${theme}`, `bg-${theme}`,'navbar', 'navbar-expand-lg']">
-      <div class="container-fluid">
-        <a href="#" class="navbar-brand">My Vue</a>
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li v-for="(page, key) in pages" class="nav-item" :key="key">
-            <a
-              :href="page.link.url"
-              class="nav-link"
-              :class="{active: key == activePage}"
-              aria-current="page"
-              :title="`This nav-button goes to ${page.link.name} page.`"
-              @click.prevent="activePage = key"
-              >{{ page.link.name }}
-            </a>
-          </li>
-        </ul>
-        <form class="d-flex">
-          <button class="btn btn-primary" @click.prevent="changeTheme()">Toggle</button>
-        </form>
-      </div>
-    </nav>
+    <navbar
+      :pages="pages"
+      :active-page="activePage"
+      :nav-page-click="(key) => activePage = key"
+    ></navbar>
 
     <page-viewer :page="pages[activePage]"></page-viewer>
 
@@ -39,7 +24,6 @@
         data() {
           return {
             activePage: 0,
-            theme: "dark",
             pages: [
               {
                 link: { name: "Home", url: "home.html" },
@@ -59,11 +43,6 @@
             ],
           };
         },
-        methods: {
-          changeTheme() {
-            this.theme = this.theme == "dark" ? "light" : "dark";
-          },
-        },
       });
 
       app.component("page-viewer", {
@@ -74,6 +53,49 @@
           <p>{{ page.content }}</p>
         </div>
         `,
+      });
+
+      app.component("navbar", {
+        props: ["pages", "activePage", "navPageClick"],
+        template: `
+        <nav :class="[\`navbar-\${this.theme}\`, \`bg-\${this.theme}\`,'navbar', 'navbar-expand-lg']">
+          <div class="container-fluid">
+            <a href="#" class="navbar-brand">My Vue</a>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li v-for="(page, key) in pages" class="nav-item" :key="key">
+                <a
+                  :href="page.link.url"
+                  class="nav-link"
+                  :class="{active: activePage == key}"
+                  aria-current="page"
+                  :title="\`This nav-button goes to \${page.link.name} page.\`"
+                  @click.prevent="navPageClick(key)"
+                  >{{ page.link.name }}
+                </a>
+              </li>
+            </ul>
+            <form class="d-flex">
+              <button class="btn btn-primary" @click.prevent="changeTheme()">Toggle</button>
+            </form>
+          </div>
+        </nav> 
+        `,
+        data() {
+          return {
+            theme: "dark",
+          };
+        },
+        methods: {
+          changeTheme() {
+            let theme = "light";
+
+            if (this.theme == "light") {
+              theme = "dark";
+            }
+
+            this.theme = theme;
+          },
+        },
       });
 
       app.mount("body");
