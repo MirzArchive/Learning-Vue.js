@@ -75,6 +75,11 @@
 				this.linkURL = ''
         this.published = true
       }
+    },
+    watch: {
+      pageTitle(newTitle, oldTitle) {
+        if (this.linkName === oldTitle) this.linkName = newTitle
+      }
     }
 	}
 </script>
