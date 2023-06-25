@@ -6,6 +6,7 @@
 <script>
 import Navbar from './components/NavBar.vue';
 import PageViewer from './components/PageViewer.vue';
+import '../node_modules/bootstrap/dist/css/bootstrap.css'
 
 export default {
   components: {

@@ -4,10 +4,7 @@
       <a href="#" class="navbar-brand">My Vue</a>
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li v-for="(page, key) in pages" class="nav-item" :key="key">
-          <a :href="page.link.url" class="nav-link" :class="{ active: activePage == key }" aria-current="page"
-            :title="`This nav-button goes to ${page.link.name} page.`" @click.prevent="navPageClick(key)">{{
-              page.link.name }}
-          </a>
+          <navlink :page="page" :is-active="activePage == key" @click.prevent="navPageClick(key)"></navlink>
         </li>
       </ul>
       <form class="d-flex">
@@ -18,7 +15,10 @@
 </template>
 
 <script>
+import Navlink from './Navlink.vue';
+
 export default {
+  components: {Navlink},
   props: ["pages", "activePage", "navPageClick"],
   data() {
     return {
