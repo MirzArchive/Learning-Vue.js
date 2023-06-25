@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Navbar from './components/NavBar.vue';
+import Navbar from './components/Navbar.vue';
 import PageViewer from './components/PageViewer.vue';
 import CreatePage from './components/CreatePage.vue';
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
@@ -34,7 +34,7 @@ export default {
       this.pages = data
     },
     createPage(pageObj) {
-      console.log(pageObj);
+      this.pages.push(pageObj);
     }
   }
 }

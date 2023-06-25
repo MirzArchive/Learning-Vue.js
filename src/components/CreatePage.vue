@@ -20,14 +20,13 @@
         </div>
         <div class="mb-3">
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="" id="">
-            <label for="" class="form-check-label"></label>
+            <input class="form-check-input" type="checkbox" name="" id="" v-model="published">
+            <label for="" class="form-check-label">Published</label>
           </div>
         </div>
       </div>
       <div class="mb-3">
-        <button class="btn btn-primary" :disabled="isFormInvalid"
-          @click.prevent="pageCreated({ pageTitle, pageContent })">Create Page
+        <button class="btn btn-primary" :disabled="isFormInvalid" @click.prevent="submitForm()">Create Page
         </button>
       </div>
     </form>
@@ -48,7 +47,8 @@
 				pageTitle: '',
 				pageContent: '',
 				linkName: '',
-				linkURL: ''
+				linkURL: '',
+        published: true
 			}
 		},
     methods: {
@@ -59,11 +59,21 @@
         }
 
         this.pageCreated({
-          pageTitle: this.pageTitle,
-          pageContent: this.pageContent,
-          linkName: this.linkName,
-          linkURL: this.linkURL
+          link: {name: this.linkName, url: this.linkURL},
+          title: this.pageTitle,
+          content: this.pageContent,
+          published: this.published
         })
+
+        this.clearFields()
+      },
+
+      clearFields() {
+        this.pageTitle = ''
+				this.pageContent = ''
+				this.linkName = ''
+				this.linkURL = ''
+        this.published = true
       }
     }
 	}
