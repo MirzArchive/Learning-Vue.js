@@ -13,27 +13,22 @@ export default {
     Navbar,
     PageViewer
   },
+  created() {
+    this.setPages()
+  },
 	data() {
 		return {
 			activePage: 0,
-            pages: [
-              {
-                link: { name: "Home", url: "home.html" },
-                title: "Home Page",
-                content: "This is the Home content",
-              },
-              {
-                link: { name: "About", url: "about.html" },
-                title: "About Page",
-                content: "This is the About content",
-              },
-              {
-                link: { name: "Contact", url: "contact.html" },
-                title: "Contact Page",
-                content: "This is the Contact content",
-              },
-            ],
+            pages: []
 		}
-	},		
+	},
+  methods: {
+    async setPages () {
+      let res = await fetch('pages.json')
+      let data = await res.json()
+
+      this.pages = data
+    }
+  }
 }
 </script>
