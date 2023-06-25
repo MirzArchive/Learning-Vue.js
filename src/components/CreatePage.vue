@@ -36,7 +36,13 @@
 <script>
 	export default {
     // pageCreated are props that's a callback function defined by App.vue later
-		props: ['pageCreated'],
+		// props: ['pageCreated'],
+    emits: {
+      pageCreated(link, title, content) {
+        if (!link || !title || !content) return false
+        return true
+      }
+    },
     computed: {
       isFormInvalid() {
         return !this.pageTitle || !this.pageContent || !this.linkName || !this.linkURL
@@ -58,7 +64,7 @@
           return
         }
 
-        this.pageCreated({
+        this.$emit('pageCreated', {
           link: {name: this.linkName, url: this.linkURL},
           title: this.pageTitle,
           content: this.pageContent,

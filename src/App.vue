@@ -2,7 +2,7 @@
   <Navbar :pages="pages" :active-page="activePage" :nav-page-click="(key) => activePage = key"></Navbar>
   <PageViewer :page="pages[activePage]" v-if="pages != null"></PageViewer>
 
-  <CreatePage :page-created="createPage"></CreatePage>
+  <CreatePage @page-created="createPage"></CreatePage>
 </template>
 
 <script>
@@ -23,7 +23,7 @@ export default {
 	data() {
 		return {
 			activePage: 0,
-            pages: []
+      pages: []
 		}
 	},
   methods: {
@@ -39,3 +39,4 @@ export default {
   }
 }
 </script>
+
