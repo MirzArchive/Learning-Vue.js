@@ -20,6 +20,9 @@ import Navlink from './Navlink.vue';
 export default {
   components: {Navlink},
   props: ["pages", "activePage", "navPageClick"],
+  created() {
+    this.getThemeSetting()
+  },
   data() {
     return {
       theme: "light",
@@ -28,6 +31,16 @@ export default {
   methods: {
     swapTheme() {
       this.theme = this.theme == 'dark' ? 'light' : 'dark'
+      this.storeThemeSetting()
+    },
+    storeThemeSetting() {
+      localStorage.setItem('theme', this.theme)
+    },
+    getThemeSetting() {
+      let theme = localStorage.getItem('theme')
+
+      // Check if theme is not empty or null
+      if (theme) this.theme = theme;
     }
   },
 };
